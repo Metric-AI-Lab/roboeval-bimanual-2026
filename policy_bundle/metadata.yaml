@@ -1,0 +1,49 @@
+team_name: Metric AI Lab
+method_name: RDB-ChunkFlow
+contact_email: ""
+affiliation: Metric AI Lab
+members:
+- Metric AI Lab Team
+roboeval_release: corl2026-challenge
+interface:
+  action_mode:
+    absolute: false
+    ee: true
+  control_frequency: 20
+  observation:
+    proprioception: true
+    cameras:
+    - name: head
+      resolution:
+      - 256
+      - 256
+      rgb: true
+      depth: false
+    - name: left_wrist
+      resolution:
+      - 256
+      - 256
+      rgb: true
+      depth: false
+    - name: right_wrist
+      resolution:
+      - 256
+      - 256
+      rgb: true
+      depth: false
+policy_seed: 0
+test_time_compute: Seven tasks (LiftPot, StackTwoBlocks, StackSingleBookShelf, PackBox, PickSingleBookFromTable,
+  RotateValve, CubeHandover) use a pose hybrid. A ResNet18 regressor (one per task) estimates object poses from the three
+  cameras and proprioception (at reset, and on every step where the object moves), and a fixed observation-only controller,
+  ported from our scripted training-data experts, plans end-effector motions from these estimates and tracks them with
+  the robot's kinematic model. No simulator state is read at test time. LiftTray uses the learned policy, where a flow-matching
+  sampler (10 Euler steps) predicts a 16-step action chunk at every control step (20 Hz), and overlapping chunks are
+  combined by ACT-style temporal ensembling (weights exp(-0.01 i)).
+training_data:
+  roboeval_demos: true
+  additional_demos: 8043
+  external_pretraining: ImageNet-1k (torchvision ResNet18 weights)
+training_gpu_hours: 14.8
+open_source: true
+code_url: https://github.com/Metric-AI-Lab/roboeval-bimanual-2026
+checkpoint_url: https://huggingface.co/Metric-AI/roboeval-bimanual-2026

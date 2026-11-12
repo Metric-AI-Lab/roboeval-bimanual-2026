@@ -1,0 +1,9 @@
+# Python 3.10+, with RoboEval installed at tag corl2026-challenge (it brings mujoco and numpy).
+torch==2.10.0
+torchvision==0.25.0
+opencv-python-headless==4.11.0.86
+numpy==1.26.4
+scipy==1.15.3
+pillow
+pyarrow          # rdb.prep: reading the demonstration parquet files
+wandb            # optional training logs (--wandb)
